@@ -21,3 +21,5 @@ Route::get('/', function () {
 Route::get('/search', function () {
     return view('search');
 });
+
+Route::post('/search', 'SearchController@search')->name('post_search');
