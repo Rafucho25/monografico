@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
-
-Route::get('/search', function () {
-    return view('search');
-});
-
-Route::post('/search', 'SearchController@search')->name('post_search');
+Route::get('/search', [SearchController::class, 'search'])->name('result_search');
