@@ -55,8 +55,8 @@ class SearchController extends Controller
         }
         $listmonograficos = 
         $listmonograficos->selectRaw('universidades.nombre as nombre_universidad, facultades.nombre as nombre_facultad, 
-        escuelas.nombre as nombre_escuela, tema, titulo_universitario, fecha')
-        ->paginate(10);
+        escuelas.nombre as nombre_escuela, tema, titulo_universitario, fecha, monograficos.id as id')
+        ->paginate(2);
         return view('search',['list' => $listmonograficos,'filter' => $filter, 'text' => $text]);
     }
 }

@@ -21,7 +21,7 @@
                 <p class="card-text"> <strong>Universidad: </strong> {{$data->nombre_universidad}}</p>
                 <p class="card-text"> <strong>Facultad: </strong> {{$data->nombre_facultad}}</p>
                 <p class="card-text"> <strong>Escuela: </strong> {{$data->nombre_escuela}}</p>
-                <a href="" class="btn btn-primary">Ver detalles</a>
+                <a href="{{route('monografico_show', $data->id)}}" class="btn btn-primary">Ver detalles</a>
                 </div>
             </div>
         </div>

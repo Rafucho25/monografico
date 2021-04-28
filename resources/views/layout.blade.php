@@ -12,7 +12,7 @@
         <div class="container">
           <a class="navbar-brand" href="{{route('index')}}">
             <img src="{{asset('images/lupa.png')}}" alt="" width="40" height="34">
-            <- Volver a la pagina de inicio
+            <- Volver al buscador
           </a>
         </div>
     </nav>
@@ -21,4 +21,6 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+@yield('script')
 </html>

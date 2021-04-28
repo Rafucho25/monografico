@@ -6,6 +6,7 @@
     <meta name="author" content="colorlib.com">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <title>Busqueda</title>
   </head>
   <body>
@@ -32,20 +33,21 @@
         </div>
       </form>
     </div>
-    <script src="js/extention/choices.js"></script>
-    <script src="js/extention/flatpickr.js"></script>
-    <script>
-      flatpickr(".datepicker",
-      {});
+  </body>
+  
+  <script src="js/extention/choices.js"></script>
+  <script src="js/extention/flatpickr.js"></script>
+  <script>
+    flatpickr(".datepicker",
+    {});
 
-    </script>
-    <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false,
-        itemSelectText: '',
-      });
+  </script>
+  <script>
+    const choices = new Choices('[data-trigger]',
+    {
+      searchEnabled: false,
+      itemSelectText: '',
+    });
 
-    </script>
-  </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+  </script>
 </html>

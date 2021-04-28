@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MonograficoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +22,15 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/search', [SearchController::class, 'search'])->name('result_search');
+
+Route::get('/monografico/show/{id}', [MonograficoController::class, 'show'])->name('monografico_show');
+
+Route::get('/login', function () {
+    return view('user.login');
+})->name('login');
+
+Route::post('/login', [UserController::class, 'login'])->name('login_post');
+
+Route::get('/test', function () {
+    return hola;
+});
