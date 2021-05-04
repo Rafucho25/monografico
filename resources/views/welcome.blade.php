@@ -10,6 +10,7 @@
     <title>Busqueda</title>
   </head>
   <body>
+    @include('messages')
     <div class="s002">
       <form method="get" action="{{route('result_search')}}">
         <fieldset> @csrf
@@ -35,6 +36,7 @@
     </div>
   </body>
   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   <script src="js/extention/choices.js"></script>
   <script src="js/extention/flatpickr.js"></script>
   <script>
@@ -49,5 +51,35 @@
       itemSelectText: '',
     });
 
+  </script>
+  <script>
+    const { Toast } = bootstrap;
+
+    const htmlMarkup = `
+    <div class="toast align-items-center text-white bg-primary border-0 position-fixed bottom-0 end-0 p-3" data-bs-delay="10000000000000" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+        @if (Sentinel::check())
+          <a style="color: white" href="{{route('manage.index')}}">Ir al panel principal</a>
+        @else
+          Eres un Usuario? <a style="color: white" href="{{route('login')}}">Inicia Sesion</a>
+        @endif
+        </div>
+    </div>
+    </div>
+    `;
+
+    function toast() {
+        var template = document.createElement('template')
+        html = htmlMarkup.trim()
+        template.innerHTML = html
+        return template.content.firstChild
+    }
+
+
+    var toastEl = toast();
+    document.body.appendChild(toastEl)
+    const myToast = new Toast(toastEl);
+    myToast.show();
   </script>
 </html>

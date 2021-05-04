@@ -18,19 +18,20 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
+
         $data = $request->all();
         if(isset($data['remember'])){
             if(Sentinel::authenticateAndRemember($data) == false){
-                return redirect()->back()->with('messageDanger', 'Correo o Contraseña incorrecta, trate de nuevo');
+                return redirect()->back()->with('messageDanger', 'Correo o Contraseña incorrecta, trate de nuevo remember');
             }
-            return redirect('/');
+            return view('manage.index');
         }
 
-        if(Sentinel::authenticate($data, true) == false){
+        if(Sentinel::authenticate($data) == false){
             Sentinel::disableCheckpoints();
             return redirect()->back()->with('messageDanger', 'Correo o Contraseña incorrecta, trate de nuevo');
         }
-        return redirect('/test');
+        return redirect()->route('manage.index');
     }
     
     public function logout(){

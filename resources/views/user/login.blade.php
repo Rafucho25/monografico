@@ -20,11 +20,11 @@
                 <form method="POST" action="{{route('login_post')}}" class="p-5 border rounded-3 bg-light">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
                         <label for="floatingInput">Correo</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                         <label for="floatingPassword">Contraseña</label>
                     </div>
                     <div class="checkbox mb-3">

@@ -16,7 +16,6 @@ use App\Http\Controllers\MonograficoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
@@ -26,11 +25,22 @@ Route::get('/search', [SearchController::class, 'search'])->name('result_search'
 Route::get('/monografico/show/{id}', [MonograficoController::class, 'show'])->name('monografico_show');
 
 Route::get('/login', function () {
+    
     return view('user.login');
+
 })->name('login');
 
 Route::post('/login', [UserController::class, 'login'])->name('login_post');
 
-Route::get('/test', function () {
-    return hola;
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'], function () {
+
+    Route::get('/index', function () {
+        return view('user.index');
+    })->name('index');
+});
+
+Route::fallback(function () {
+    return redirect()->route('index');
 });
