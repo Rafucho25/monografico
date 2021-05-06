@@ -18,6 +18,11 @@ use App\Http\Controllers\ManageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', function () {
+
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
@@ -50,6 +55,21 @@ Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'
     Route::post('/universidad/update/{id}', [UniversidadController::class, 'update'])->name('universidades.update');
     Route::get('/universidad/show/{id}', [UniversidadController::class, 'show'])->name('universidades.show');
     Route::post('/universidad/delete', [UniversidadController::class, 'destroy'])->name('universidades.delete');
+
+    Route::group(['middleware' => 'loginadmin', 'as'=>'admin.', 'prefix' => '/admin'], function () {
+        
+        Route::get('/test', function () {
+    
+        });
+        
+        Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+        Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::get('/user/show/{id}', [UserController::class, 'show'])->name('user.show');
+        Route::post('/user/delete', [UserController::class, 'destroy'])->name('user.delete');
+    });
 });
 
 Route::fallback(function () {

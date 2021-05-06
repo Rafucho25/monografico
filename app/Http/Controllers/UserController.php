@@ -14,7 +14,15 @@ class UserController extends Controller
     public function register(Request $request){
 
         $data = $request->all();
-        Sentinel::registerAndActivate($data);
+        $newuser = Sentinel::registerAndActivate($data);
+
+        
+        $user = Sentinel::findById($newuser->id);
+
+        $role = Sentinel::findRoleByName('Basic');
+
+        $role->users()->attach($user);
+
         return redirect('/');
     }
 
