@@ -10,11 +10,11 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="card text-center">
+        <div class="card border-primary text-center">
             <div class="card-header">
                 <h3>Detalles Del Monografico</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body text-primary">
                 <h4 class="card-title">{{$monografico->nombre_universidad}}</h4>
                 <h4 class="card-title">Recinto {{$monografico->nombre_recinto}}</h4>
                 <br>
