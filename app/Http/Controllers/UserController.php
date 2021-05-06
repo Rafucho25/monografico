@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Sentinel;
 use DB;
+use File;
 use App\Models\User;
 
 class UserController extends Controller
@@ -42,7 +43,7 @@ class UserController extends Controller
     public function profile(){
 
         $user = User::find(Sentinel::getUser()->id);
-        return view('profile',compact('user'));
+        return view('user.profile',compact('user'));
     }
 
     public function update($id, Request $request){

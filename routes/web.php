@@ -39,6 +39,9 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'], function () {
 
     Route::get('/index', ManageController::class)->name('index');
+    
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
     Route::get('/universidad/index', [UniversidadController::class, 'index'])->name('universidades.index');
     Route::get('/universidad/create', [UniversidadController::class, 'create'])->name('universidades.create');

@@ -36,11 +36,12 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Hola {{Sentinel::getUser()->first_name}}
+                  <img src="{{Sentinel::getUser()->photo}}" width="40px" height="40px" alt="">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarScrollingDropdown">
-                  <li><a class="dropdown-item" href="#">Perfil</a></li>
+                  <li class="dropdown-item">Hola {{Sentinel::getUser()->first_name}}</li>
                   <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{{route('manage.user.profile')}}">Perfil</a></li>
                   <li><a class="dropdown-item" href="{{route('logout')}}">Cerrar Sesion</a></li>
                 </ul>
               </li>
