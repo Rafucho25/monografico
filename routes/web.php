@@ -5,6 +5,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MonograficoController;
 use App\Http\Controllers\UniversidadController;
+use App\Http\Controllers\ManageController;
 
 
 /*
@@ -37,9 +38,7 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'], function () {
 
-    Route::get('/index', function () {
-        return view('user.index');
-    })->name('index');
+    Route::get('/index', ManageController::class)->name('index');
 
     Route::get('/universidad/index', [UniversidadController::class, 'index'])->name('universidades.index');
     Route::get('/universidad/create', [UniversidadController::class, 'create'])->name('universidades.create');
