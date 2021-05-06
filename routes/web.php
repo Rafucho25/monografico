@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MonograficoController;
+use App\Http\Controllers\UniversidadController;
 
 
 /*
@@ -39,6 +40,14 @@ Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'
     Route::get('/index', function () {
         return view('user.index');
     })->name('index');
+
+    Route::get('/universidad/index', [UniversidadController::class, 'index'])->name('universidades.index');
+    Route::get('/universidad/create', [UniversidadController::class, 'create'])->name('universidades.create');
+    Route::post('/universidad/store', [UniversidadController::class, 'store'])->name('universidades.store');
+    Route::get('/universidad/edit/{id}', [UniversidadController::class, 'edit'])->name('universidades.edit');
+    Route::post('/universidad/update/{id}', [UniversidadController::class, 'update'])->name('universidades.update');
+    Route::get('/universidad/show/{id}', [UniversidadController::class, 'show'])->name('universidades.show');
+    Route::post('/universidad/delete', [UniversidadController::class, 'destroy'])->name('universidades.delete');
 });
 
 Route::fallback(function () {

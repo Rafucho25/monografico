@@ -6,7 +6,9 @@
     </center>
 @endif
 @if(session()->has('messageSuccess'))
-    <div class="alert alert-success" role="alert">
-        {{ session()->get('messageSuccess') }}
-    </div>
+    <center>
+        <div class="alert alert-success" role="alert">
+            {{ session()->get('messageSuccess') }}
+        </div>
+    </center>
 @endif
