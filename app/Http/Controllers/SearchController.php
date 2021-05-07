@@ -19,6 +19,7 @@ class SearchController extends Controller
                 ->join('escuelas', 'escuelas.id', 'escuela_id')
                 ->join('facultades', 'facultades.id', 'facultad_id')
                 ->join('universidades', 'universidades.id', 'universidad_id')
+                ->join('carreras', 'carreras.id', 'carrera_id')
                 ->where('tema','REGEXP',$text);
                 break;
 
@@ -27,6 +28,7 @@ class SearchController extends Controller
                 ->join('escuelas', 'escuelas.id', 'escuela_id')
                 ->join('facultades', 'facultades.id', 'facultad_id')
                 ->join('universidades', 'universidades.id', 'universidad_id')
+                ->join('carreras', 'carreras.id', 'carrera_id')
                 ->where('universidades.nombre','REGEXP',$text);
                 break;
 
@@ -35,6 +37,7 @@ class SearchController extends Controller
                 ->join('escuelas', 'escuelas.id', 'escuela_id')
                 ->join('facultades', 'facultades.id', 'facultad_id')
                 ->join('universidades', 'universidades.id', 'universidad_id')
+                ->join('carreras', 'carreras.id', 'carrera_id')
                 ->where('escuelas.nombre','REGEXP',$text);
                 break;
 
@@ -43,6 +46,7 @@ class SearchController extends Controller
                 ->join('escuelas', 'escuelas.id', 'escuela_id')
                 ->join('facultades', 'facultades.id', 'facultad_id')
                 ->join('universidades', 'universidades.id', 'universidad_id')
+                ->join('carreras', 'carreras.id', 'carrera_id')
                 ->where('facultades.nombre','REGEXP',$text);
                 break;
 
@@ -50,12 +54,13 @@ class SearchController extends Controller
                 $listmonograficos = DB::table('monograficos')
                 ->join('escuelas', 'escuelas.id', 'escuela_id')
                 ->join('facultades', 'facultades.id', 'facultad_id')
-                ->join('universidades', 'universidades.id', 'universidad_id');
+                ->join('universidades', 'universidades.id', 'universidad_id')
+                ->join('carreras', 'carreras.id', 'carrera_id');
                 break;
         }
         $listmonograficos = 
         $listmonograficos->selectRaw('universidades.nombre as nombre_universidad, facultades.nombre as nombre_facultad, 
-        escuelas.nombre as nombre_escuela, tema, titulo_universitario, fecha, monograficos.id as id')
+        escuelas.nombre as nombre_escuela, tema, carreras.nombre as titulo_universitario, fecha, monograficos.id as id')
         ->paginate(2);
         return view('search',['list' => $listmonograficos,'filter' => $filter, 'text' => $text]);
     }

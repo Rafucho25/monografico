@@ -52,9 +52,10 @@ class MonograficoController extends Controller
         ->join('facultades', 'facultades.id', 'facultad_id')
         ->join('universidades', 'universidades.id', 'universidad_id')
         ->join('recintos', 'recintos.id', 'recinto_id')
+        ->join('carreras', 'carreras.id', 'carrera_id')
         ->where('monograficos.id', $id)
         ->selectRaw('universidades.nombre as nombre_universidad, facultades.nombre as nombre_facultad, 
-        escuelas.nombre as nombre_escuela, recintos.nombre as nombre_recinto, tema, titulo_universitario, fecha')
+        escuelas.nombre as nombre_escuela, recintos.nombre as nombre_recinto, tema,  carreras.nombre as titulo_universitario, fecha')
         ->first();
         
         $autores = DB::table('monograficos')
