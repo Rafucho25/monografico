@@ -16,8 +16,10 @@ class CreateMonograficosTable extends Migration
         Schema::create('monograficos', function (Blueprint $table) {
             $table->id();
             $table->integer('recinto_id');
+            $table->integer('universidad_id');
+            $table->integer('facultad_id');
             $table->integer('escuela_id');
-            $table->string('titulo_universitario');
+            $table->integer('carrera_id');
             $table->string('tema');
             $table->date('fecha');
             $table->timestamps();

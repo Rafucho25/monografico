@@ -16,7 +16,6 @@ class CreateEscuelasTable extends Migration
         Schema::create('escuelas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->integer('facultad_id');
             $table->timestamps();
         });
     }
