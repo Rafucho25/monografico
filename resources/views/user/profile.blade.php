@@ -30,6 +30,18 @@
                                 {!! Form::label('email', 'Correo Electronico:') !!}
                                 {!! Form::text('email', null, ['class' => 'form-control', "disabled",  "placeholder" => "Correo Electronico"]) !!}
                             </div> <br>
+                            @php
+                                if (Sentinel::getUser()->inRole('Basic')) {
+                                    $value = 1;
+                                } else {
+                                    $value = 2;
+                                }
+                                
+                            @endphp
+                            <div class="form-group">
+                                {!! Form::label('role', 'Role:') !!}
+                                {!! Form::select('role', $roles, $value, ['class' => 'form-control', "disabled"]) !!}
+                            </div> <br>
                             <!--TODO: Revisar el boton guardar cuando el input foto esta vacio -->
                             <center><button class="btn btn-success" type="submit">Guardar Cambios</button></center>
 

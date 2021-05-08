@@ -51,7 +51,8 @@ class UserController extends Controller
     public function profile(){
 
         $user = User::find(Sentinel::getUser()->id);
-        return view('user.profile',compact('user'));
+        $roles = DB::table('roles')->pluck('name', 'id');
+        return view('user.profile',compact('user', 'roles'));
     }
 
     public function update($id, Request $request){

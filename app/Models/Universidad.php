@@ -11,7 +11,7 @@ class Universidad extends Model
 
     protected $table = 'universidades';
 
-    protected $fillable = [
-        'nombre'
+    protected $guarded = [
+        'id'
     ];
 }

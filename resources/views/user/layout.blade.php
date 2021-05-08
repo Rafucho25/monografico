@@ -17,19 +17,25 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
+              <a class="nav-link" href="{{route('manage.recintos.index')}}">Recintos</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{route('manage.universidades.index')}}">Universidades</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Recintos</a>
+              <a class="nav-link" href="{{route('manage.facultades.index')}}">Facultades</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Facultades</a>
+              <a class="nav-link" href="{{route('manage.escuelas.index')}}">Escuelas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Escuelas</a>
+              <a class="nav-link" href="{{route('manage.carreras.index')}}">Carreras</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Carreras</a>
+              <a class="nav-link" href="{{route('manage.autores.index')}}">Autores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('manage.sustentantes.index')}}">Sustentantes</a>
             </li>
           </ul>
           <span class="navbar-text">
