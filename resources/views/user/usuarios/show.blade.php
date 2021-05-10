@@ -1,18 +1,18 @@
 @extends('user.layout')
-<title>Monograficos - Ver Facultades</title>
+<title>Monograficos - Ver Usuarios</title>
 
 @section('body')
     <div class="row">
         <div class="col-md-10">
-            <h2>Ver Facultad</h2>
+            <h2>Ver Usuario</h2>
         </div>
     </div> <br>
-    {!! Form::model($facultad) !!}
+    {!! Form::model($user) !!}
         @csrf
-        @include('user.facultades.fields')
+        @include('user.usuarios.fields')
 
         <center> <br>
-            <a href="{{route('manage.facultades.index')}}" class="btn btn-warning">Volver al listado</a>
+            <a href="{{route('manage.admin.usuarios.index')}}" class="btn btn-warning">Volver al listado</a>
         </center>
     {!! Form::close() !!}
 @endsection

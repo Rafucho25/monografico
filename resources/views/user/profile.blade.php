@@ -12,7 +12,7 @@
                             <h3 class="text-center title-2">Datos Generales</h3>
                         </div>
                         <hr>
-                        {!! Form::model($user, ['route' => ['manage.user.update', $user->id ], 'method' => 'post' , 'enctype'=>'multipart/form-data']) !!}
+                        {!! Form::model($user, ['route' => ['manage.user.updateProfile', $user->id ], 'method' => 'post' , 'enctype'=>'multipart/form-data']) !!}
                             @csrf
                             <div class="form-group">
                                 <center><img id="imgUser" src="{{isset($user->photo) ? $user->photo : asset('/images/users/template.png')}}" width="200px" height="200px" alt="your image" /></center><br>

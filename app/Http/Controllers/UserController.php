@@ -10,20 +10,129 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $usuarios = User::all();
+        return view('user.usuarios.index', compact('usuarios'));
+    }
 
-    public function register(Request $request){
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $roles = DB::table('roles')->pluck('name', 'id');
+        return view('user.usuarios.create', compact('roles'));
+    }
 
+
+    public function store(Request $request){
+
+        if($request->password == $request->confirm_password){
+            $data = $request->all();
+            $newuser = Sentinel::registerAndActivate($data);
+
+            $user = Sentinel::findById($newuser->id);
+    
+            $role = Sentinel::findRoleById($request->role);
+    
+            $role->users()->attach($user);
+
+            //foto
+            $user = User::find($newuser->id);
+
+            if ($file = $request->file('photo')) {
+                $extension = $file->extension()?: 'png';
+                $destinationPath = public_path() . '/images/users/';
+                $safeName = 'user_no_' . $user->id . '.' . $extension;
+                $file->move($destinationPath, $safeName);
+                $data['photo'] = url('/').'/images/users/'.$safeName;
+                $user->photo = $data['photo'];
+            }
+            $user->save();
+    
+            return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Creado Correctamente');
+        }else{
+            return redirect()->back()->with('messageDanger', 'Las Contraseñas no coinciden, favor verificar');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::find($id);
+        $roles = DB::table('roles')->pluck('name', 'id');
+        return view('user.usuarios.show', compact('user', 'roles'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+        $roles = DB::table('roles')->pluck('name', 'id');
+        return view('user.usuarios.edit', compact('user', 'roles'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id, Request $request)
+    {
+        $user = User::find($id);
         $data = $request->all();
-        $newuser = Sentinel::registerAndActivate($data);
 
+        if ($file = $request->file('photo')) {
+            $extension = $file->extension()?: 'png';
+            $destinationPath = public_path() . '/images/users/';
+            $safeName = 'user_no_' . $user->id . '.' . $extension;
+            $file->move($destinationPath, $safeName);
+            $data['photo'] = url('/').'/images/users/'.$safeName;
+            $user->photo = $data['photo'];
+        }
+        $user->fill($data);
+        $user->save();
         
-        $user = Sentinel::findById($newuser->id);
-
-        $role = Sentinel::findRoleByName('Basic');
-
+        $user = Sentinel::findById($id);
+        $role = Sentinel::findRoleById($request->role);
         $role->users()->attach($user);
 
-        return redirect('/');
+        return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Modificado Correctamente');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $user = Sentinel::findById($request->id);
+        $user->delete();
+
+        return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Eliminado Correctamente');
     }
 
     public function login(Request $request){
@@ -55,7 +164,7 @@ class UserController extends Controller
         return view('user.profile',compact('user', 'roles'));
     }
 
-    public function update($id, Request $request){
+    public function updateProfile($id, Request $request){
 
         $user = User::find(Sentinel::getUser()->id);
         $data = $request->all();

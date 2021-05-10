@@ -52,7 +52,7 @@ Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'
     Route::get('/index', ManageController::class)->name('index');
     
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/update/profile/{id}', [UserController::class, 'updateProfile'])->name('user.updateProfile');
 
     Route::get('/universidad/index', [UniversidadController::class, 'index'])->name('universidades.index');
     Route::get('/universidad/create', [UniversidadController::class, 'create'])->name('universidades.create');
@@ -115,14 +115,14 @@ Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'
         Route::get('/test', function () {
     
         });
-        
-        Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
-        Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-        Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
-        Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-        Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
-        Route::get('/user/show/{id}', [UserController::class, 'show'])->name('user.show');
-        Route::post('/user/delete', [UserController::class, 'destroy'])->name('user.delete');
+
+        Route::get('/usuario/index', [UserController::class, 'index'])->name('usuarios.index');
+        Route::get('/usuario/create', [UserController::class, 'create'])->name('usuarios.create');
+        Route::post('/usuario/store', [UserController::class, 'store'])->name('usuarios.store');
+        Route::get('/usuario/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
+        Route::post('/usuario/update/{id}', [UserController::class, 'update'])->name('usuarios.update');
+        Route::get('/usuario/show/{id}', [UserController::class, 'show'])->name('usuarios.show');
+        Route::post('/usuario/delete', [UserController::class, 'destroy'])->name('usuarios.delete');
     });
 });
 

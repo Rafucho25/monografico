@@ -37,6 +37,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('manage.sustentantes.index')}}">Sustentantes</a>
             </li>
+            @if (Sentinel::inRole('Admin'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('manage.admin.usuarios.index')}}">Usuarios</a>
+            </li>
+            @endif
           </ul>
           <span class="navbar-text">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
