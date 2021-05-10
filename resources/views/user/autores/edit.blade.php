@@ -1,19 +1,19 @@
 @extends('user.layout')
-<title>Monograficos - Modificar Recintos</title>
+<title>Monograficos - Modificar Autores</title>
 
 @section('body')
     <div class="row">
         <div class="col-md-10">
-            <h2>Modificar Recinto</h2>
+            <h2>Modificar Autor</h2>
         </div>
     </div> <br>
-    {!! Form::model($recinto, [ 'method' => 'post', 'route' => ['manage.recintos.update', $recinto->id]]) !!}
+    {!! Form::model($autor, [ 'method' => 'post', 'route' => ['manage.autores.update', $autor->id]]) !!}
         @csrf
-        @include('user.recintos.fields')
+        @include('user.autores.fields')
 
         <center> <br>
             <input type="submit" class="btn btn-success" value="Guardar">
-            <a href="{{route('manage.recintos.index')}}" class="btn btn-warning">Volver al listado</a>
+            <a href="{{route('manage.autores.index')}}" class="btn btn-warning">Volver al listado</a>
         </center>
     {!! Form::close() !!}
 @endsection

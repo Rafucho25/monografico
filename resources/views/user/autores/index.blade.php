@@ -16,7 +16,9 @@
                 <thead>
                     <tr>
                         <th>Numero</th>
-                        <th>Nombre</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Matricula</th>
                         <th>Fecha Registro</th>
                         <th>Accion</th>
                     </tr>
@@ -25,7 +27,9 @@
                     @foreach ($autores as $autor)
                         <tr>
                             <td>{{$autor->id}}</td>
-                            <td>{{$autor->nombre}}</td>
+                            <td>{{$autor->nombres}}</td>
+                            <td>{{$autor->apellidos}}</td>
+                            <td>{{$autor->matricula}}</td>
                             <td>{{date('d/m/Y H:m:s', strtotime($autor->created_at))}}</td>
                             <td>
                                 <a href="{{route('manage.autores.show', $autor->id)}}" class="btn btn-info">Detalles</a>

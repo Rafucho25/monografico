@@ -16,7 +16,8 @@
                 <thead>
                     <tr>
                         <th>Numero</th>
-                        <th>Nombre</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
                         <th>Fecha Registro</th>
                         <th>Accion</th>
                     </tr>
@@ -25,7 +26,8 @@
                     @foreach ($sustentantes as $recinto)
                         <tr>
                             <td>{{$recinto->id}}</td>
-                            <td>{{$recinto->nombre}}</td>
+                            <td>{{$recinto->nombres}}</td>
+                            <td>{{$recinto->apellidos}}</td>
                             <td>{{date('d/m/Y H:m:s', strtotime($recinto->created_at))}}</td>
                             <td>
                                 <a href="{{route('manage.sustentantes.show', $recinto->id)}}" class="btn btn-info">Detalles</a>
