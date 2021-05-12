@@ -35,14 +35,6 @@
                             {!! Form::password('confirm_password', ['class' => 'form-control', "placeholder" => "Confirmar Contraseña"]) !!}
                         </div> <br>
                         @endif
-                        @php
-                            if (Sentinel::getUser()->inRole('Basic')) {
-                                $value = 1;
-                            } else {
-                                $value = 2;
-                            }
-                            
-                        @endphp
                         <div class="form-group">
                             {!! Form::label('role', 'Role:') !!}
                             {!! Form::select('role', $roles, $value, ['class' => 'form-control']) !!}

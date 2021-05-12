@@ -58,7 +58,7 @@ class UserController extends Controller
             }
             $user->save();
     
-            return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Creado Correctamente');
+            return redirect()->route('manage.admin.usuarios.index')->with('messageSuccess', 'Usuario Creado Correctamente');
         }else{
             return redirect()->back()->with('messageDanger', 'Las Contraseñas no coinciden, favor verificar');
         }
@@ -85,9 +85,18 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        //$user = User::find($id);
+        $user = Sentinel::findById($id);
+
         $roles = DB::table('roles')->pluck('name', 'id');
-        return view('user.usuarios.edit', compact('user', 'roles'));
+        
+        if ($user->inRole('Basic')) {
+            $value = 1;
+        } else {
+            $value = 2;
+        }
+
+        return view('user.usuarios.edit', compact('user', 'roles', 'value'));
     }
 
     /**
@@ -112,12 +121,15 @@ class UserController extends Controller
         }
         $user->fill($data);
         $user->save();
+
+        //Elimino el rol actual del usuario
+        DB::table('role_users')->where('user_id', $id)->delete();
         
         $user = Sentinel::findById($id);
         $role = Sentinel::findRoleById($request->role);
         $role->users()->attach($user);
 
-        return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Modificado Correctamente');
+        return redirect()->route('manage.admin.usuarios.index')->with('messageSuccess', 'Usuario Modificado Correctamente');
     }
 
     /**
@@ -132,7 +144,7 @@ class UserController extends Controller
         $user = Sentinel::findById($request->id);
         $user->delete();
 
-        return redirect()->route('manage.usuarios.index')->with('messageSuccess', 'Usuario Eliminado Correctamente');
+        return redirect()->route('manage.admin.usuarios.index')->with('messageSuccess', 'Usuario Eliminado Correctamente');
     }
 
     public function login(Request $request){

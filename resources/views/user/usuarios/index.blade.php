@@ -27,12 +27,13 @@
                 <tbody>
                     @foreach ($usuarios as $usuario)
                         @php
-                            if (Sentinel::getUser()->inRole('Basic')) {
+                            $user = Sentinel::findById($usuario->id);
+                            
+                            if ($user->inRole('Basic')) {
                                 $role = 'Basic';
                             } else {
                                 $role = 'Admin';
-                            }
-                            
+                            }                            
                         @endphp
                         <tr>
                             <td>{{$usuario->id}}</td>
