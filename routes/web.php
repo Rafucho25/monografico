@@ -35,7 +35,7 @@ Route::get('/', function () {
 
 Route::get('/search', [SearchController::class, 'search'])->name('result_search');
 
-Route::get('/monografico/show/{id}', [MonograficoController::class, 'show'])->name('monografico_show');
+Route::get('/monografico/show/{id}', [MonograficoController::class, 'detail'])->name('monografico_show');
 
 Route::get('/login', function () {
     
@@ -109,6 +109,14 @@ Route::group(['middleware' => 'loginuser', 'as'=>'manage.', 'prefix' => 'manage'
     Route::post('/sustentante/update/{id}', [SustentanteController::class, 'update'])->name('sustentantes.update');
     Route::get('/sustentante/show/{id}', [SustentanteController::class, 'show'])->name('sustentantes.show');
     Route::post('/sustentante/delete', [SustentanteController::class, 'destroy'])->name('sustentantes.delete');
+
+    Route::get('/monografico/index', [MonograficoController::class, 'index'])->name('monograficos.index');
+    Route::get('/monografico/create', [MonograficoController::class, 'create'])->name('monograficos.create');
+    Route::post('/monografico/store', [MonograficoController::class, 'store'])->name('monograficos.store');
+    Route::get('/monografico/edit/{id}', [MonograficoController::class, 'edit'])->name('monograficos.edit');
+    Route::post('/monografico/update/{id}', [MonograficoController::class, 'update'])->name('monograficos.update');
+    Route::get('/monografico/show/{id}', [MonograficoController::class, 'show'])->name('monograficos.show');
+    Route::post('/monografico/delete', [MonograficoController::class, 'destroy'])->name('monograficos.delete');
 
     Route::group(['middleware' => 'loginadmin', 'as'=>'admin.', 'prefix' => '/admin'], function () {
         

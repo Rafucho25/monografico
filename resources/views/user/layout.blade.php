@@ -37,6 +37,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('manage.sustentantes.index')}}">Sustentantes</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('manage.monograficos.index')}}">Monograficos</a>
+            </li>
             @if (Sentinel::inRole('Admin'))
             <li class="nav-item">
               <a class="nav-link" href="{{route('manage.admin.usuarios.index')}}">Usuarios</a>
