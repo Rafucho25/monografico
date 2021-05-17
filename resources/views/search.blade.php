@@ -14,7 +14,7 @@
       </div>
     @endif
     @foreach ($list as $data)
-        <div class="col-md-6" style="margin-top: 20px">
+        <div class="col-md-5 zoom" style="margin-top: 20px">
             <div class="card  card-monografico">
                 <div class="card-body">
                 <h5 class="card-title">Tema: {{$data->tema}}</h5>
@@ -25,6 +25,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-1"></div>
     @endforeach
     <div class="row" style="margin-top: 20px">
         {{ $list->appends(array('filter' => $filter, 'text' => $text))->render() }}
