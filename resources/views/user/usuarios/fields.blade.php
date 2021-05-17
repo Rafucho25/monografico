@@ -37,7 +37,7 @@
                         @endif
                         <div class="form-group">
                             {!! Form::label('role', 'Role:') !!}
-                            {!! Form::select('role', $roles, $value, ['class' => 'form-control']) !!}
+                            {!! Form::select('role', $roles, $value ?? '', ['class' => 'form-control']) !!}
                         </div> <br>
                 </div>
             </div>

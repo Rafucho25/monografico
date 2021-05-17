@@ -72,9 +72,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = Sentinel::findById($id);
         $roles = DB::table('roles')->pluck('name', 'id');
-        return view('user.usuarios.show', compact('user', 'roles'));
+        
+        if ($user->inRole('Basic')) {
+            $value = 1;
+        } else {
+            $value = 2;
+        }
+
+        return view('user.usuarios.show', compact('user', 'roles', 'value'));
     }
 
     /**
