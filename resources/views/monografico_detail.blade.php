@@ -23,7 +23,7 @@
                 <br>
                 <h6 class="card-text">Titulo Universitario {{$monografico->titulo_universitario}} </h6>
                 <h6 class="card-text">Tema {{$monografico->tema}}</h6>
-                <h6 class="card-text">Fecha {{$monografico->fecha}}</h6>                
+                <h6 class="card-text">{{$fecha}}</h6>                
             </div>
             <div class="card-footer text-muted">
                 <div class="row">

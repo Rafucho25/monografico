@@ -11,7 +11,7 @@
         </div>
     </div> <br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 table-responsive">
             <table id="myTable" class="display">
                 <thead>
                     <tr>
@@ -32,13 +32,22 @@
                             <td>{{$monografico->titulo_universitario}}</td>
                             <td>{{$monografico->tema}}</td>
                             <td>
-                                <a href="{{route('manage.monograficos.show', $monografico->id)}}" class="btn btn-info">Detalles</a>
-                                <a href="{{route('manage.monograficos.edit', $monografico->id)}}" class="btn btn-primary">Modificar</a>
-                                <button class="btn btn-danger eliminar" data-bs-toggle="modal" data-bs-target="#deleteModal" id="{{$monografico->id}}">Eliminar</button>
+                                <a href="{{route('manage.monograficos.show', $monografico->id)}}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver Monografico"><i class="far fa-eye"></i></a>
+                                <a href="{{route('manage.monograficos.edit', $monografico->id)}}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar Monografico"><i class="fas fa-pencil-alt"></i></a>
+                                <button class="btn btn-danger eliminar" data-bs-target="#deleteModal" id="{{$monografico->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Monografico"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Recito</th>
+                        <th>Universidad</th>
+                        <th>Carrera</th>
+                        <th>Tema</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -73,10 +82,30 @@
         $(document).ready( function () {
             $('#myTable').DataTable({
                 language: { "url": "{{ asset('js/datatable/Spanish.json') }}" },
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                        });
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        });
+                    });
+                }
             })
         });
 
         $('.eliminar').click(function() { 
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            myModal.show();
             let id = this.id;
             $('#id').val(id);
         });

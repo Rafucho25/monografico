@@ -11,6 +11,7 @@ use App\Models\Facultad;
 use App\Models\Recinto;
 use App\Models\Sustentante;
 use App\Models\Universidad;
+use Str;
 use DB;
 
 
@@ -229,8 +230,11 @@ class MonograficoController extends Controller
         ->where('monograficos.id', $id)
         ->selectRaw('nombres, apellidos')
         ->get();
+            
+        setlocale(LC_ALL, 'es_DO.UTF-8');
+        $fecha = Str::ucfirst(strftime("%B %Y", strtotime($monografico->fecha)));
 
-        return view('monografico_detail', compact('monografico', 'autores', 'sustentantes'));
+        return view('monografico_detail', compact('monografico', 'autores', 'sustentantes', 'fecha'));
 
     }
 }
