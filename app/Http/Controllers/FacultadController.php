@@ -93,9 +93,19 @@ class FacultadController extends Controller
      */
     public function destroy(Request $request)
     {
-        $facultad = Facultad::find($request->id);
-        $facultad->delete();
-
-        return redirect()->route('manage.facultades.index')->with('messageSuccess', 'Facultad Eliminada Correctamente');
+        try {
+            $facultad = Facultad::find($request->id);
+            $facultad->delete();
+    
+            return redirect()->route('manage.facultades.index')->with('messageSuccess', 'Facultad Eliminada Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar esta Facultad debido a que esta siendo usada en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

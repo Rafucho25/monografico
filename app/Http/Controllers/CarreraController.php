@@ -93,9 +93,19 @@ class CarreraController extends Controller
      */
     public function destroy(Request $request)
     {
-        $carrera = Carrera::find($request->id);
-        $carrera->delete();
-
-        return redirect()->route('manage.carreras.index')->with('messageSuccess', 'Carrera Eliminada Correctamente');
+        try {
+            $carrera = Carrera::find($request->id);
+            $carrera->delete();
+    
+            return redirect()->route('manage.carreras.index')->with('messageSuccess', 'Carrera Eliminada Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar esta Carrera debido a que esta siendo usada en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

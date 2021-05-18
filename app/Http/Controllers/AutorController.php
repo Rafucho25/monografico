@@ -93,9 +93,19 @@ class AutorController extends Controller
      */
     public function destroy(Request $request)
     {
-        $autor = Autor::find($request->id);
-        $autor->delete();
-
-        return redirect()->route('manage.autores.index')->with('messageSuccess', 'Autor Eliminado Correctamente');
+        try {
+            $autor = Autor::find($request->id);
+            $autor->delete();
+    
+            return redirect()->route('manage.autores.index')->with('messageSuccess', 'Autor Eliminado Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar este Autor debido a que esta siendo usado en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Universidad;
+use Illuminate\Database\QueryException;
 
 class UniversidadController extends Controller
 {
@@ -93,9 +94,20 @@ class UniversidadController extends Controller
      */
     public function destroy(Request $request)
     {
-        $universidad = Universidad::find($request->id);
-        $universidad->delete();
+        try {
 
-        return redirect()->route('manage.universidades.index')->with('messageSuccess', 'Universidad Eliminada Correctamente');
+            $universidad = Universidad::find($request->id);
+            $universidad->delete();
+    
+            return redirect()->route('manage.universidades.index')->with('messageSuccess', 'Universidad Eliminada Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar esta Universidad debido a que esta siendo usada en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

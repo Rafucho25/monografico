@@ -41,7 +41,7 @@ class SustentanteController extends Controller
         $sustentante->fill($request);
         $sustentante->save();
 
-        return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Creada Correctamente');
+        return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Creado Correctamente');
     }
 
     /**
@@ -81,7 +81,7 @@ class SustentanteController extends Controller
         $sustentante->fill($request->all());
         $sustentante->save();
 
-        return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Modificada Correctamente');
+        return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Modificado Correctamente');
     }
 
     /**
@@ -93,9 +93,19 @@ class SustentanteController extends Controller
      */
     public function destroy(Request $request)
     {
-        $sustentante = Sustentante::find($request->id);
-        $sustentante->delete();
-
-        return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Eliminada Correctamente');
+        try {
+            $sustentante = Sustentante::find($request->id);
+            $sustentante->delete();
+    
+            return redirect()->route('manage.sustentantes.index')->with('messageSuccess', 'Sustentante Eliminado Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar este Sustentante debido a que esta siendo usado en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

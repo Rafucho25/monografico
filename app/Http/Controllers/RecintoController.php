@@ -93,9 +93,19 @@ class RecintoController extends Controller
      */
     public function destroy(Request $request)
     {
-        $recinto = Recinto::find($request->id);
-        $recinto->delete();
-
-        return redirect()->route('manage.recintos.index')->with('messageSuccess', 'Recinto Eliminado Correctamente');
+        try {
+            $recinto = Recinto::find($request->id);
+            $recinto->delete();
+    
+            return redirect()->route('manage.recintos.index')->with('messageSuccess', 'Recinto Eliminado Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar este Recinto debido a que esta siendo usada en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }

@@ -93,9 +93,19 @@ class EscuelaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $escuela = Escuela::find($request->id);
-        $escuela->delete();
-
-        return redirect()->route('manage.escuelas.index')->with('messageSuccess', 'Escuela Eliminada Correctamente');
+        try {
+            $escuela = Escuela::find($request->id);
+            $escuela->delete();
+    
+            return redirect()->route('manage.escuelas.index')->with('messageSuccess', 'Escuela Eliminada Correctamente');
+            
+        } catch (QueryException $th) {
+            if($th->getCode() == 23000){
+                return redirect()->back()->with('messageDanger', 'No puede eliminar esta Escuela debido a que esta siendo usada en un monografico');
+            
+            }else{
+                return redirect()->back()->with('messageDanger', 'Ha ocurrido un error, por favor trare mas tarde');
+            }
+        }
     }
 }
