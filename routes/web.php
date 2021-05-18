@@ -37,6 +37,8 @@ Route::get('/search', [SearchController::class, 'search'])->name('result_search'
 
 Route::get('/monografico/show/{id}', [MonograficoController::class, 'detail'])->name('monografico_show');
 
+Route::get('/monografico/print/{id}', [MonograficoController::class, 'print'])->name('monograficos.print');
+
 Route::get('/login', function () {
     
     return view('user.login');

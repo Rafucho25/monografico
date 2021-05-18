@@ -19,10 +19,10 @@
                 <h4 class="card-title">Recinto {{$monografico->nombre_recinto}}</h4>
                 <br>
                 <h5 class="card-text">{{$monografico->nombre_facultad}}</h5>
-                <h5 class="card-text">Escuela de {{$monografico->nombre_escuela}}</h5>
+                <h5 class="card-text">{{$monografico->nombre_escuela}}</h5>
                 <br>
-                <h6 class="card-text">Titulo Universitario {{$monografico->titulo_universitario}} </h6>
-                <h6 class="card-text">Tema {{$monografico->tema}}</h6>
+                <h6 class="card-text">Titulo Universitario: {{$monografico->titulo_universitario}} </h6>
+                <h6 class="card-text">Tema: {{$monografico->tema}}</h6>
                 <h6 class="card-text">{{$fecha}}</h6>                
             </div>
             <div class="card-footer text-muted">
@@ -46,6 +46,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12"> <br>
+        <center><a target="blank" class="btn btn-info" href="{{route('monograficos.print', $id)}}">Imprimir Portada</a></center>
     </div>
 </div>
 @endsection

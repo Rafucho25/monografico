@@ -13,6 +13,7 @@ use App\Models\Sustentante;
 use App\Models\Universidad;
 use Str;
 use DB;
+use PDF;
 
 
 class MonograficoController extends Controller
@@ -234,7 +235,54 @@ class MonograficoController extends Controller
         setlocale(LC_ALL, 'es_DO.UTF-8');
         $fecha = Str::ucfirst(strftime("%B %Y", strtotime($monografico->fecha)));
 
-        return view('monografico_detail', compact('monografico', 'autores', 'sustentantes', 'fecha'));
+        return view('monografico_detail', compact('monografico', 'autores', 'sustentantes', 'fecha', 'id'));
 
+    }
+
+    public function print($id){
+
+        $monografico = DB::table('monograficos')
+        ->join('escuelas', 'escuelas.id', 'escuela_id')
+        ->join('facultades', 'facultades.id', 'facultad_id')
+        ->join('universidades', 'universidades.id', 'universidad_id')
+        ->join('recintos', 'recintos.id', 'recinto_id')
+        ->join('carreras', 'carreras.id', 'carrera_id')
+        ->where('monograficos.id', $id)
+        ->selectRaw('universidades.nombre as nombre_universidad, facultades.nombre as nombre_facultad, 
+        escuelas.nombre as nombre_escuela, recintos.nombre as nombre_recinto, tema,  carreras.nombre as titulo_universitario, fecha')
+        ->first();
+        
+        $autores = DB::table('monograficos')
+        ->join('monografico_autor', 'monografico_autor.monografico_id', 'monograficos.id')
+        ->join('autores', 'monografico_autor.autor_id', 'autores.id')
+        ->where('monograficos.id', $id)
+        ->selectRaw('nombres, apellidos, matricula')
+        ->get();
+
+        $sustentantes = DB::table('monograficos')
+        ->join('monografico_sustentante', 'monografico_sustentante.monografico_id', 'monograficos.id')
+        ->join('sustentantes', 'monografico_sustentante.sustentante_id', 'sustentantes.id')
+        ->where('monograficos.id', $id)
+        ->selectRaw('nombres, apellidos')
+        ->get();
+            
+        setlocale(LC_ALL, 'es_DO.UTF-8');
+        $fecha = Str::ucfirst(strftime("%B %Y", strtotime($monografico->fecha)));
+
+        $data = [
+            'monografico' => $monografico,
+            'autores' =>$autores,
+            'sustentantes' => $sustentantes,
+            'fecha' =>$fecha,
+        ];
+
+        //$pdf = PDF::loadView('monografico_print', $monografico, $autores, $sustentantes, $fecha);
+        $pdf = PDF::loadView('monografico_print', $data);
+
+        // Output the generated PDF to Browser
+        return $pdf->stream('portada.pdf');
+
+        // Download File
+        return $pdf->download('portada.pdf');
     }
 }
