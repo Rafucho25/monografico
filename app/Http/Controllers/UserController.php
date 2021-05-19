@@ -7,6 +7,7 @@ use Sentinel;
 use DB;
 use File;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -35,6 +36,20 @@ class UserController extends Controller
 
     public function store(Request $request){
 
+        Validator::make($request->all(), [
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6|same:confirm_password',
+            'confirm_password' => 'required',
+        ])->validate();
+        
+        /*return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cedula' => ['required', 'unique:users,cedula'],
+            'cedula_cliente' => ['exists:clientes,cedula'],
+        ]);*/
+        
         if($request->password == $request->confirm_password){
             $data = $request->all();
             $newuser = Sentinel::registerAndActivate($data);
