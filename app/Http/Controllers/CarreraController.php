@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Carrera;
+use Illuminate\Database\QueryException;
 
 class CarreraController extends Controller
 {

@@ -15,8 +15,8 @@ class CreateMonograficoSustentanteTable extends Migration
     {
         Schema::create('monografico_sustentante', function (Blueprint $table) {
             $table->id();
-            $table->integer('monografico_id');
-            $table->integer('sustentante_id');
+            $table->unsignedBigInteger('monografico_id');
+            $table->unsignedBigInteger('sustentante_id');
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ class CreateMonograficoAutorTable extends Migration
     {
         Schema::create('monografico_autor', function (Blueprint $table) {
             $table->id();
-            $table->integer('monografico_id');
-            $table->integer('autor_id');
+            $table->unsignedBigInteger('monografico_id');
+            $table->unsignedBigInteger('autor_id');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Escuela;
+use Illuminate\Database\QueryException;
 
 class EscuelaController extends Controller
 {

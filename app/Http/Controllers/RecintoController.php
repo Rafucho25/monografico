@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recinto;
+use Illuminate\Database\QueryException;
 
 class RecintoController extends Controller
 {

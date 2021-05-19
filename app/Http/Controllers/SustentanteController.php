@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sustentante;
+use Illuminate\Database\QueryException;
 
 class SustentanteController extends Controller
 {

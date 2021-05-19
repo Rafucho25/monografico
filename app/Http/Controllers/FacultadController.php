@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Facultad;
+use Illuminate\Database\QueryException;
 
 class FacultadController extends Controller
 {

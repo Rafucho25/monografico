@@ -95,7 +95,6 @@ class UniversidadController extends Controller
     public function destroy(Request $request)
     {
         try {
-
             $universidad = Universidad::find($request->id);
             $universidad->delete();
     

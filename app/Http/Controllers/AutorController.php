@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Autor;
+use Illuminate\Database\QueryException;
 
 class AutorController extends Controller
 {

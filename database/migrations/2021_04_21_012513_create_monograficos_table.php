@@ -15,11 +15,11 @@ class CreateMonograficosTable extends Migration
     {
         Schema::create('monograficos', function (Blueprint $table) {
             $table->id();
-            $table->integer('recinto_id');
-            $table->integer('universidad_id');
-            $table->integer('facultad_id');
-            $table->integer('escuela_id');
-            $table->integer('carrera_id');
+            $table->unsignedBigInteger('recinto_id');
+            $table->unsignedBigInteger('universidad_id');
+            $table->unsignedBigInteger('facultad_id');
+            $table->unsignedBigInteger('escuela_id');
+            $table->unsignedBigInteger('carrera_id');
             $table->string('tema');
             $table->date('fecha');
             $table->timestamps();
